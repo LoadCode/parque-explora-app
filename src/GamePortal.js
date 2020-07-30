@@ -7,6 +7,7 @@ import Typography from "@material-ui/core/Typography";
 import { withStyles } from "@material-ui/core/styles";
 import { withRouter } from "react-router-dom";
 import TextField from "@material-ui/core/TextField";
+import GameReset from "./GameReset";
 
 const classStyles = (theme) => ({
   panel: {
@@ -22,15 +23,16 @@ const classStyles = (theme) => ({
     textAlign: "center",
     fontSize: 16,
   },
-  button: {},
 });
 
 class GamePortal extends React.Component {
   constructor(props) {
     super(props);
     this.createClock = this.createClock.bind(this);
+    this.handleGameReset = this.handleGameReset.bind(this);
     this.state = {
-      timeLeft: 30,
+      timeLeft: 20,
+      dialogState: false,
     };
   }
 
@@ -46,10 +48,17 @@ class GamePortal extends React.Component {
     this.createClock();
   }
 
+  handleGameReset() {
+    console.log("You clicked to reset the game");
+  }
+
   render() {
     const { classes } = this.props;
-    let time = this.state.timeLeft;
-    if (time == 0) clearInterval(this.myInterval);
+    let failure = false;
+    if (this.state.timeLeft === 0) {
+      failure = true;
+      clearInterval(this.myInterval);
+    }
     return (
       <div
         style={{
@@ -69,7 +78,7 @@ class GamePortal extends React.Component {
               </Grid>
               <Grid item xs={12}>
                 <Typography gutterBottom className={classes.clock}>
-                  Tiempo Restante {time} segundos
+                  Tiempo Restante {this.state.timeLeft} segundos
                 </Typography>
               </Grid>
               <Grid item xs={12}>
@@ -78,9 +87,9 @@ class GamePortal extends React.Component {
                   margin="dense"
                   id="answerId"
                   label="Escribe un Palíndromo"
-                  onChange={(e) => {
-                    this.answer.answerId = e.target.value;
-                  }}
+                  //   onChange={(e) => {
+                  //     this.answer.answerId = e.target.value;
+                  //   }}
                   //onKeyDown={handleOnKeyDown}
                   fullWidth
                 />
@@ -98,6 +107,7 @@ class GamePortal extends React.Component {
               </Grid>
             </Grid>
           </CardContent>
+          <GameReset dialogState={failure} />
         </Card>
       </div>
     );

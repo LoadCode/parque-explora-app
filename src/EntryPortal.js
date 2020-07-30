@@ -46,9 +46,9 @@ class EntryPortal extends React.Component {
               </Grid>
               <Grid item xs={12}>
                 <Typography gutterBottom>
-                  En este desafío contarás con 30 segundos para escribir un
+                  En este desafío contarás con 20 segundos para escribir un
                   palíndromo, una vez transcurrido este periodo de tiempo el
-                  sistema evaluará la validés del mismo y te mostrará el reverso
+                  sistema evaluará la validéz del mismo y te mostrará el reverso
                   del palíndromo ingresado.
                 </Typography>
               </Grid>
